@@ -26,10 +26,14 @@
 
 ### 3.1 Logging & Tracing
 
-- EVIDENCE_CORRELATION_ID_SCREENSHOT: ![](evidence/correlation-id.png)
-- EVIDENCE_PII_REDACTION_SCREENSHOT: ![](evidence/pii-redaction.png)
-- EVIDENCE_TRACE_LIST_SCREENSHOT: ![](evidence/trace-list.png)
-- EVIDENCE_TRACE_WATERFALL_SCREENSHOT: ![](evidence/trace-waterfall.png)
+- EVIDENCE_CORRELATION_ID_SCREENSHOT:  
+![](evidence/correlation-id.png)
+- EVIDENCE_PII_REDACTION_SCREENSHOT:  
+![](evidence/pii-redaction.png)
+- EVIDENCE_TRACE_LIST_SCREENSHOT:  
+- ![](evidence/traces-10.png)
+- EVIDENCE_TRACE_WATERFALL_SCREENSHOT:  
+![](evidence/waterfall.png)
 - EVIDENCE_TRACE_COUNT_NOTE: docs/evidence/run-summary-2026-04-20.md
 - TRACE_WATERFALL_EXPLANATION: Trace `2cd6b4ae020ad70a5f9831c68156f101` cho thấy độ trễ đầu-cuối chủ yếu nằm ở span `LabAgent.run`. Thời gian sinh nội dung từ OpenAI vẫn trong ngưỡng ổn định, trong khi tổng độ trễ request tăng, phù hợp với chỉ số P95 cao trên dashboard và `/metrics`.
 
