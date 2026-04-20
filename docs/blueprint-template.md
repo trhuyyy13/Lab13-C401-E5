@@ -76,7 +76,7 @@
 
 ### [Vũ Hải Đăng]: 
 
-- [TASKS_COMPLETED]: Triển khai middleware lan truyền correlation ID, bind context request ở tầng API, và đảm bảo trường correlation trong response luôn trả về nhất quán.
+- [TASKS_COMPLETED]: Triển khai middleware lan truyền correlation ID, bind context request ở tầng API, và đảm bảo trường correlation trong response luôn trả về nhất quán bằng middleware.py, main.py, schemas.py.
 - EVIDENCE_LINK: <https://github.com/trhuyyy13/Lab13-C401-E5/commits?author=StevenMup2004>
 
 ### [Lương Anh Tuấn]: 
