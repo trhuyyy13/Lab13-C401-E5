@@ -1,0 +1,49 @@
+{
+  "derived_metrics": {
+    "latency_p95_ms": 8796.0,
+    "error_rate_pct": 0.0,
+    "hourly_cost_usd": 2.05,
+    "total_cost_usd": 0.0357,
+    "traffic": 10,
+    "cost_baseline_hourly_usd": 0.81
+  },
+  "respect_duration": false,
+  "alerts": [
+    {
+      "name": "high_latency_p95",
+      "severity": "P2",
+      "runbook": "docs/alerts.md#1-high-latency-p95",
+      "condition": "latency_p95_ms > 5000 for 30m",
+      "condition_met": true,
+      "firing": true,
+      "current_value": 8796.0,
+      "window_minutes": 30,
+      "sustained_minutes": 5,
+      "threshold_value": 5000.0
+    },
+    {
+      "name": "high_error_rate",
+      "severity": "P1",
+      "runbook": "docs/alerts.md#2-high-error-rate",
+      "condition": "error_rate_pct > 5 for 5m",
+      "condition_met": false,
+      "firing": false,
+      "current_value": 0.0,
+      "window_minutes": 5,
+      "sustained_minutes": 0,
+      "threshold_value": 5.0
+    },
+    {
+      "name": "cost_budget_spike",
+      "severity": "P2",
+      "runbook": "docs/alerts.md#3-cost-budget-spike",
+      "condition": "hourly_cost_usd > 2x_baseline for 15m",
+      "condition_met": true,
+      "firing": true,
+      "current_value": 2.05,
+      "window_minutes": 15,
+      "sustained_minutes": 5,
+      "threshold_value": 1.62
+    }
+  ]
+}
