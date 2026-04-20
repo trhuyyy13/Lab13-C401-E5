@@ -1,10 +1,10 @@
-{"user_id":"u01","session_id":"s01","feature":"qa","message":"What is your refund policy? My email is student@vinuni.edu.vn"}
-{"user_id":"u02","session_id":"s02","feature":"qa","message":"Explain why metrics traces and logs work together"}
-{"user_id":"u03","session_id":"s03","feature":"summary","message":"Summarize the monitoring policy for production logging"}
-{"user_id":"u04","session_id":"s04","feature":"qa","message":"Can I get help with policy and monitoring?"}
-{"user_id":"u05","session_id":"s05","feature":"qa","message":"Here is my phone 0987654321, what should be logged?"}
-{"user_id":"u06","session_id":"s06","feature":"summary","message":"Give me a short summary of the observability workflow"}
-{"user_id":"u07","session_id":"s07","feature":"qa","message":"What should not appear in app logs?"}
-{"user_id":"u08","session_id":"s08","feature":"qa","message":"How do I debug tail latency?"}
-{"user_id":"u09","session_id":"s09","feature":"qa","message":"What is the policy for PII and credit card 4111 1111 1111 1111?"}
-{"user_id":"u10","session_id":"s10","feature":"qa","message":"How should alerts be designed?"}
+{"user_id":"u01","session_id":"s01","feature":"qa","message":"I am a HUST IT student, where should I search for internship roles? My email is student@hust.edu.vn"}
+{"user_id":"u02","session_id":"s02","feature":"qa","message":"How can I improve my CV for backend internship applications?"}
+{"user_id":"u03","session_id":"s03","feature":"summary","message":"Summarize a 4-week interview preparation plan for software interns"}
+{"user_id":"u04","session_id":"s04","feature":"qa","message":"My GPA is 2.8, how can I still compete for good intern opportunities?"}
+{"user_id":"u05","session_id":"s05","feature":"qa","message":"My phone is 0987654321, what personal info should not be logged?"}
+{"user_id":"u06","session_id":"s06","feature":"summary","message":"Give me a short roadmap to become a data engineer after graduation"}
+{"user_id":"u07","session_id":"s07","feature":"qa","message":"Which projects should I prioritize for AI Engineer intern roles?"}
+{"user_id":"u08","session_id":"s08","feature":"qa","message":"How should I answer behavioral interview questions using STAR?"}
+{"user_id":"u09","session_id":"s09","feature":"qa","message":"Can you review this info safely: CCCD 012345678901 and card 4111 1111 1111 1111"}
+{"user_id":"u10","session_id":"s10","feature":"qa","message":"Suggest a weekly learning plan for HUST third-year software students"}
