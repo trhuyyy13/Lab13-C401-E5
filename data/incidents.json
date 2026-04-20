@@ -1,5 +1,9 @@
 {
   "rag_slow": "Retrieval latency spike. Students should find slow RAG span in trace.",
   "tool_fail": "Vector store or tool error. Students should identify error_type from logs.",
-  "cost_spike": "Token usage spike. Students should explain higher output token cost."
+  "cost_spike": "Token usage spike. Students should explain higher output token cost.",
+  "db_timeout": "Database connection timeout. Students should spot upstream timeout errors in traces.",
+  "rate_limit_exceeded": "API rate limit hit. Logs should show 429 Too Many Requests from the LLM provider.",
+  "pii_leak": "Sensitive data leaked in plain text. Students should identify missing scrubber coverage in JSON logs.",
+  "high_error_rate": "Spike in general 500 errors. Students should trigger the high_error_rate alert rule."
 }
