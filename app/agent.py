@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import time
 from dataclasses import dataclass
 
@@ -21,15 +22,21 @@ class AgentResult:
 
 
 class LabAgent:
-    def __init__(self, model: str = "claude-sonnet-4-5") -> None:
-        self.model = model
-        self.llm = FakeLLM(model=model)
+    def __init__(self, model: str | None = None, topic: str | None = None) -> None:
+        self.model = model or os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        self.topic = topic or os.getenv("CHATBOT_TOPIC", "hust-career-assistant")
+        self.llm = FakeLLM(model=self.model)
 
     @observe()
     def run(self, user_id: str, feature: str, session_id: str, message: str) -> AgentResult:
         started = time.perf_counter()
         docs = retrieve(message)
-        prompt = f"Feature={feature}\nDocs={docs}\nQuestion={message}"
+        prompt = (
+            f"Topic={self.topic}\n"
+            f"Feature={feature}\n"
+            f"Docs={docs}\n"
+            f"Question={message}"
+        )
         response = self.llm.generate(prompt)
         quality_score = self._heuristic_quality(message, response.text, docs)
         latency_ms = int((time.perf_counter() - started) * 1000)
