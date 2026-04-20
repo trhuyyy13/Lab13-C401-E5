@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from structlog.contextvars import bind_contextvars
 
 from .agent import LabAgent
@@ -20,6 +21,7 @@ log = get_logger()
 app = FastAPI(title="Day 13 Observability Lab")
 app.add_middleware(CorrelationIdMiddleware)
 agent = LabAgent()
+BASE_DIR = Path(__file__).resolve().parent
 
 
 @app.on_event("startup")
@@ -42,10 +44,25 @@ async def metrics() -> dict:
     return snapshot()
 
 
+@app.get("/dashboard")
+async def dashboard() -> FileResponse:
+    return FileResponse(BASE_DIR / "static" / "dashboard.html")
+
+
+@app.get("/chat-ui")
+async def chat_ui() -> FileResponse:
+    return FileResponse(BASE_DIR / "static" / "chat-vi.html")
+
+
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: Request, body: ChatRequest) -> ChatResponse:
-    # TODO: Enrich logs with request context (user_id_hash, session_id, feature, model, env)
-    # bind_contextvars(...)
+    bind_contextvars(
+        user_id_hash=hash_user_id(body.user_id),
+        session_id=body.session_id,
+        feature=body.feature,
+        model=agent.model,
+        env=os.getenv("APP_ENV", "dev"),
+    )
     
     log.info(
         "request_received",

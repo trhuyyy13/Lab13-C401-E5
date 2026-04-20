@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bảng điều khiển AI Career Assistant HUST</title>
+    <style>
+      :root {
+        --bg: #f5efe6;
+        --surface: #fffaf2;
+        --ink: #1f1d1b;
+        --muted: #6b6258;
+        --brand: #0f766e;
+        --accent: #f59e0b;
+        --danger: #c2410c;
+        --ok: #15803d;
+        --ring: rgba(15, 118, 110, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(1200px 600px at -15% -20%, #f3d7a9 0%, transparent 60%),
+          radial-gradient(900px 600px at 110% 0%, #b7e4d5 0%, transparent 55%),
+          linear-gradient(180deg, #f9f5ed 0%, #f2e9de 100%);
+        min-height: 100vh;
+        padding: 24px;
+      }
+
+      .shell {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(1.5rem, 3vw, 2.4rem);
+        letter-spacing: 0.02em;
+      }
+
+      .subtitle {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      .pill {
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-weight: 700;
+        background: var(--surface);
+        box-shadow: 0 0 0 2px var(--ring);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid rgba(31, 29, 27, 0.08);
+        border-radius: 18px;
+        padding: 14px;
+        box-shadow: 0 6px 22px rgba(56, 43, 26, 0.08);
+        transform: translateY(10px);
+        opacity: 0;
+        animation: reveal 550ms ease forwards;
+      }
+
+      .card:nth-child(2) {
+        animation-delay: 70ms;
+      }
+      .card:nth-child(3) {
+        animation-delay: 140ms;
+      }
+      .card:nth-child(4) {
+        animation-delay: 210ms;
+      }
+      .card:nth-child(5) {
+        animation-delay: 280ms;
+      }
+      .card:nth-child(6) {
+        animation-delay: 350ms;
+      }
+
+      @keyframes reveal {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .span-4 {
+        grid-column: span 4;
+      }
+
+      .span-6 {
+        grid-column: span 6;
+      }
+
+      .span-12 {
+        grid-column: span 12;
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .hint {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .kpi {
+        margin-top: 12px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      .kpi strong {
+        font-size: 1.7rem;
+      }
+
+      .kpi span {
+        color: var(--muted);
+      }
+
+      .meter {
+        margin-top: 10px;
+      }
+
+      .track {
+        width: 100%;
+        height: 10px;
+        background: #ece4d7;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .fill {
+        height: 100%;
+        transition: width 280ms ease;
+      }
+
+      .fill.ok {
+        background: linear-gradient(90deg, #16a34a, #84cc16);
+      }
+
+      .fill.warn {
+        background: linear-gradient(90deg, #f59e0b, #f97316);
+      }
+
+      .fill.bad {
+        background: linear-gradient(90deg, #ef4444, #dc2626);
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .mini {
+        background: #fcf7ef;
+        border: 1px solid rgba(31, 29, 27, 0.08);
+        border-radius: 12px;
+        padding: 10px;
+      }
+
+      .mini label {
+        display: block;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .mini strong {
+        font-size: 1.2rem;
+      }
+
+      .error-list {
+        margin-top: 10px;
+        font-size: 0.9rem;
+      }
+
+      .error-list div {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 8px;
+        border-radius: 10px;
+        background: #fff7ec;
+        margin-bottom: 6px;
+      }
+
+      canvas {
+        width: 100%;
+        height: 160px;
+        border-radius: 12px;
+        background: #fffcf7;
+        border: 1px solid rgba(31, 29, 27, 0.08);
+      }
+
+      .status {
+        margin-top: 8px;
+        font-size: 0.88rem;
+      }
+
+      .status.good {
+        color: var(--ok);
+      }
+
+      .status.bad {
+        color: var(--danger);
+      }
+
+      @media (max-width: 960px) {
+        .span-4,
+        .span-6 {
+          grid-column: span 12;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .split {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div>
+          <h1 class="title">Quan sát hệ thống AI Career Assistant HUST</h1>
+          <p class="subtitle">Khoảng thời gian mặc định: 1 giờ, tự làm mới mỗi 15 giây</p>
+        </div>
+        <div class="pill" id="updatedAt">Cập nhật lúc: --:--:--</div>
+      </header>
+
+      <section class="grid">
+        <article class="card span-6">
+          <h3>1) Độ trễ P50 / P95 / P99</h3>
+          <p class="hint">Hiển thị ngưỡng SLO cho mục tiêu P95 &lt; 3000 ms</p>
+          <canvas id="latencyChart" width="640" height="160"></canvas>
+          <div class="split">
+            <div class="mini"><label>P50</label><strong id="lat50">0 ms</strong></div>
+            <div class="mini"><label>P95</label><strong id="lat95">0 ms</strong></div>
+          </div>
+          <div class="status" id="latencyStatus"></div>
+        </article>
+
+        <article class="card span-6">
+          <h3>2) Lưu lượng</h3>
+          <p class="hint">Tổng số request và request/phút ước tính từ các lần đo gần nhất</p>
+          <div class="kpi"><strong id="trafficTotal">0</strong><span>tổng số request</span></div>
+          <div class="kpi"><strong id="trafficRpm">0</strong><span>request mỗi phút</span></div>
+        </article>
+
+        <article class="card span-4">
+          <h3>3) Tỷ lệ lỗi + Phân rã lỗi</h3>
+          <p class="hint">Ngưỡng SLO: tỷ lệ lỗi &lt; 2%</p>
+          <div class="kpi"><strong id="errorRate">0%</strong><span>tỷ lệ lỗi</span></div>
+          <div class="meter">
+            <div class="track"><div class="fill ok" id="errorFill" style="width: 0%;"></div></div>
+          </div>
+          <div class="error-list" id="errorList"></div>
+        </article>
+
+        <article class="card span-4">
+          <h3>4) Chi phí theo thời gian</h3>
+          <p class="hint">Hiển thị tổng chi phí và chi phí trung bình mỗi request (USD)</p>
+          <div class="kpi"><strong id="costTotal">$0.0000</strong><span>tổng chi phí</span></div>
+          <div class="kpi"><strong id="costAvg">$0.0000</strong><span>trung bình mỗi request</span></div>
+        </article>
+
+        <article class="card span-4">
+          <h3>5) Token vào / ra</h3>
+          <p class="hint">Tổng khối lượng token tích lũy</p>
+          <div class="kpi"><strong id="tokensIn">0</strong><span>token đầu vào</span></div>
+          <div class="kpi"><strong id="tokensOut">0</strong><span>token đầu ra</span></div>
+        </article>
+
+        <article class="card span-12">
+          <h3>6) Chỉ số chất lượng</h3>
+          <p class="hint">Điểm chất lượng heuristic với ngưỡng tham chiếu 0.75</p>
+          <canvas id="qualityChart" width="960" height="170"></canvas>
+          <div class="kpi"><strong id="qualityAvg">0.00</strong><span>điểm chất lượng trung bình</span></div>
+          <div class="status" id="qualityStatus"></div>
+        </article>
+      </section>
+    </div>
+
+    <script>
+      const history = {
+        time: [],
+        p50: [],
+        p95: [],
+        p99: [],
+        quality: [],
+        traffic: [],
+      };
+
+      const MAX_POINTS = 240;
+      const REFRESH_MS = 15000;
+
+      function clamp(num, min, max) {
+        return Math.min(max, Math.max(min, num));
+      }
+
+      function formatMoney(value) {
+        return "$" + Number(value || 0).toFixed(4);
+      }
+
+      function updateText(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      }
+
+      function drawLineChart(canvasId, series, color, yMax, threshold) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const w = canvas.width;
+        const h = canvas.height;
+        const pad = 24;
+
+        ctx.clearRect(0, 0, w, h);
+
+        ctx.strokeStyle = "#ddd3c5";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(pad, h - pad);
+        ctx.lineTo(w - pad, h - pad);
+        ctx.moveTo(pad, pad);
+        ctx.lineTo(pad, h - pad);
+        ctx.stroke();
+
+        if (threshold !== null && threshold !== undefined) {
+          const yT = h - pad - (clamp(threshold / Math.max(yMax, 1), 0, 1) * (h - pad * 2));
+          ctx.strokeStyle = "#9f1239";
+          ctx.setLineDash([5, 4]);
+          ctx.beginPath();
+          ctx.moveTo(pad, yT);
+          ctx.lineTo(w - pad, yT);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+
+        if (!series.length) return;
+
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        series.forEach((v, i) => {
+          const x = pad + (i / Math.max(series.length - 1, 1)) * (w - pad * 2);
+          const y = h - pad - (clamp(v / Math.max(yMax, 1), 0, 1) * (h - pad * 2));
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+      }
+
+      function renderLatency(metrics) {
+        updateText("lat50", Number(metrics.latency_p50 || 0).toFixed(0) + " ms");
+        updateText("lat95", Number(metrics.latency_p95 || 0).toFixed(0) + " ms");
+
+        const status = document.getElementById("latencyStatus");
+        if ((metrics.latency_p95 || 0) < 3000) {
+          status.textContent = "P95 đang đạt SLO (< 3000 ms).";
+          status.className = "status good";
+        } else {
+          status.textContent = "P95 vượt SLO. Cần kiểm tra độ trễ RAG và mô hình.";
+          status.className = "status bad";
+        }
+
+        const maxLatency = Math.max(3000, ...history.p95, ...history.p99, 10);
+        drawLineChart("latencyChart", history.p95, "#0f766e", maxLatency, 3000);
+      }
+
+      function renderTraffic(metrics) {
+        const total = Number(metrics.traffic || 0);
+        updateText("trafficTotal", String(total));
+
+        const len = history.traffic.length;
+        let rpm = 0;
+        if (len >= 2) {
+          const delta = history.traffic[len - 1] - history.traffic[len - 2];
+          rpm = (delta * 60000) / REFRESH_MS;
+        }
+        updateText("trafficRpm", rpm.toFixed(2));
+      }
+
+      function renderErrors(metrics) {
+        const total = Number(metrics.traffic || 0);
+        const breakdown = metrics.error_breakdown || {};
+        const errors = Object.values(breakdown).reduce((a, b) => a + Number(b || 0), 0);
+        const rate = total > 0 ? (errors / total) * 100 : 0;
+
+        updateText("errorRate", rate.toFixed(2) + "%");
+
+        const fill = document.getElementById("errorFill");
+        fill.style.width = clamp(rate * 8, 0, 100).toFixed(0) + "%";
+        fill.className = "fill " + (rate < 2 ? "ok" : rate < 5 ? "warn" : "bad");
+
+        const list = document.getElementById("errorList");
+        list.innerHTML = "";
+        const keys = Object.keys(breakdown);
+        if (!keys.length) {
+          const row = document.createElement("div");
+          row.innerHTML = "<span>Không có lỗi</span><strong>0</strong>";
+          list.appendChild(row);
+          return;
+        }
+
+        keys.forEach((k) => {
+          const row = document.createElement("div");
+          row.innerHTML = "<span>" + k + "</span><strong>" + breakdown[k] + "</strong>";
+          list.appendChild(row);
+        });
+      }
+
+      function renderCost(metrics) {
+        updateText("costTotal", formatMoney(metrics.total_cost_usd));
+        updateText("costAvg", formatMoney(metrics.avg_cost_usd));
+      }
+
+      function renderTokens(metrics) {
+        updateText("tokensIn", String(metrics.tokens_in_total || 0));
+        updateText("tokensOut", String(metrics.tokens_out_total || 0));
+      }
+
+      function renderQuality(metrics) {
+        const q = Number(metrics.quality_avg || 0);
+        updateText("qualityAvg", q.toFixed(2));
+        const status = document.getElementById("qualityStatus");
+        if (q >= 0.75) {
+          status.textContent = "Chất lượng đang tốt (>= 0.75).";
+          status.className = "status good";
+        } else {
+          status.textContent = "Chất lượng dưới ngưỡng. Hãy rà soát prompt và tài liệu truy xuất.";
+          status.className = "status bad";
+        }
+
+        drawLineChart("qualityChart", history.quality, "#f59e0b", 1.0, 0.75);
+      }
+
+      function pushHistory(metrics) {
+        const now = Date.now();
+        history.time.push(now);
+        history.p50.push(Number(metrics.latency_p50 || 0));
+        history.p95.push(Number(metrics.latency_p95 || 0));
+        history.p99.push(Number(metrics.latency_p99 || 0));
+        history.quality.push(Number(metrics.quality_avg || 0));
+        history.traffic.push(Number(metrics.traffic || 0));
+
+        if (history.time.length > MAX_POINTS) {
+          Object.keys(history).forEach((k) => history[k].shift());
+        }
+      }
+
+      async function fetchMetrics() {
+        const res = await fetch("/metrics", { cache: "no-store" });
+        if (!res.ok) {
+          throw new Error("Không tải được dữ liệu /metrics");
+        }
+        return res.json();
+      }
+
+      async function refresh() {
+        try {
+          const metrics = await fetchMetrics();
+          pushHistory(metrics);
+          renderLatency(metrics);
+          renderTraffic(metrics);
+          renderErrors(metrics);
+          renderCost(metrics);
+          renderTokens(metrics);
+          renderQuality(metrics);
+          updateText("updatedAt", "Cập nhật lúc: " + new Date().toLocaleTimeString());
+        } catch (err) {
+          updateText("updatedAt", "Cập nhật thất bại");
+          console.error(err);
+        }
+      }
+
+      refresh();
+      setInterval(refresh, REFRESH_MS);
+    </script>
+  </body>
+</html>

@@ -46,6 +46,12 @@ python scripts/inject_incident.py --scenario rag_slow
 
 # Check your implementation progress
 python scripts/validate_logs.py
+
+# Open the built-in dashboard UI (after starting the app)
+# http://127.0.0.1:8000/dashboard
+
+# Open the Vietnamese chat UI
+# http://127.0.0.1:8000/chat-ui
 ```
 
 ## Repo map
